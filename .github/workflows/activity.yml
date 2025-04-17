@@ -1,0 +1,42 @@
+name: Simulate Daily Dev Activity
+
+on:
+  schedule:
+    - cron: '32 14 * * *' # Runs every day at 2:32PM UTC (randomize this later)
+  workflow_dispatch:
+
+jobs:
+  simulate:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v3
+
+    - name: Simulate Work
+      run: |
+        FILES=("project-blog/blog.js" "cli-tool/tool.py" "notes/dev-log.md")
+        MSGS=("fix: adjust header alignment"
+              "refactor: clean up loop logic"
+              "docs: update dev-log.md"
+              "feat: add CLI argument parser"
+              "chore: update README")
+
+        # Choose a random number of commits (0–3)
+        COUNT=$(( RANDOM % 4 ))
+
+        for ((i=0; i<$COUNT; i++)); do
+          FILE=${FILES[$RANDOM % ${#FILES[@]}]}
+          MSG=${MSGS[$RANDOM % ${#MSGS[@]}]}
+          echo "// change: $(date)" >> $FILE
+          git config user.name "JamesXalis"
+          git config user.email "your@email.com"
+          git add $FILE
+          git commit -m "$MSG"
+        done
+
+        if [ $COUNT -gt 0 ]; then
+          git push
+        else
+          echo "No commits today 🎉"
+        fi
