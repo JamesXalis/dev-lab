@@ -15,12 +15,16 @@ jobs:
 
     - name: Simulate Work
       run: |
-        FILES=("project-blog/blog.js" "cli-tool/tool.py" "notes/dev-log.md")
-        MSGS=("fix: adjust header alignment"
-              "refactor: clean up loop logic"
-              "docs: update dev-log.md"
-              "feat: add CLI argument parser"
-              "chore: update README")
+        FILES=("project-blog/blog.js" "cli-tool/tool.py" "api-server/routes.js" "notes/dev-log.md" "utils/helpers.py" "scripts/deploy.sh")
+        MSGS=("fix: resolve race condition in auth middleware"
+                "feat: add caching to user profile API"
+                "docs: improve README formatting"
+                "refactor: rename variables for clarity"
+                "chore: bump dependencies"
+                "test: add unit tests for utils"
+                "style: apply Prettier formatting"
+                "ci: update GitHub Actions workflow")
+
 
         # Choose a random number of commits (0–3)
         COUNT=$(( RANDOM % 4 ))
