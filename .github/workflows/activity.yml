@@ -2,7 +2,7 @@ name: Simulate Daily Dev Activity
 
 on:
   schedule:
-    - cron: '32 14 * * *' # Runs every day at 2:32PM UTC (randomize this later)
+    - cron: '32 14 * * *' # Runs daily at 2:32PM UTC
   workflow_dispatch:
 
 jobs:
@@ -36,7 +36,10 @@ jobs:
         done
 
         if [ $COUNT -gt 0 ]; then
-          git push
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/${{ github.repository }}
+          git push origin main
         else
           echo "No commits today 🎉"
         fi
