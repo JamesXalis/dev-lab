@@ -12,6 +12,8 @@ jobs:
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.GH_PAT }}
 
     - name: Simulate Work
       run: |
@@ -25,11 +27,11 @@ jobs:
               "style: apply Prettier formatting"
               "ci: update GitHub Actions workflow")
 
-        # 👉 Set your Git identity to YOUR GitHub account, not the bot
+        # Set Git identity to YOU
         git config user.name "JamesXalis"
-        git config user.email "jamesxalis@hotmail.com"   # <-- put YOUR GitHub email here
+        git config user.email "jamesxalis@hotmail.com"
 
-        # Choose a random number of commits (0–3)
+        # Choose random number of commits
         COUNT=$(( RANDOM % 4 ))
 
         for ((i=0; i<$COUNT; i++)); do
@@ -41,7 +43,6 @@ jobs:
         done
 
         if [ $COUNT -gt 0 ]; then
-          git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/${{ github.repository }}
           git push origin main
         else
           echo "No commits today 🎉"
