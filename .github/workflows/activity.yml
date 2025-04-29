@@ -25,9 +25,9 @@ jobs:
               "style: apply Prettier formatting"
               "ci: update GitHub Actions workflow")
 
-        # Git identity for GitHub Actions
-        git config user.name "github-actions[bot]"
-        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        # 👉 Set your Git identity to YOUR GitHub account, not the bot
+        git config user.name "JamesXalis"
+        git config user.email "jamesxalis@hotmail.com"   # <-- put YOUR GitHub email here
 
         # Choose a random number of commits (0–3)
         COUNT=$(( RANDOM % 4 ))
